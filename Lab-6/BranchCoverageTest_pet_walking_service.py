@@ -87,3 +87,9 @@ def test_gps_alert_after_two_consecutive_weak_signals():
     assert inspect_gps_collars([[19, 19]]) == "LOST_SIGNAL_ALERT"
     assert inspect_gps_collars([[50], [19, 19]]) == "LOST_SIGNAL_ALERT"
 
+
+
+def test_four_incidents_do_not_trigger_audit_but_five_do():
+    four_bad_walks = [{"num_pets": 0} for _ in range(4)]
+    result = process_walking_routes([route(walks=four_bad_walks)], 5)
+    assert result == {"total_revenue": 0.0, "status": "ZERO_EARNINGS"}
