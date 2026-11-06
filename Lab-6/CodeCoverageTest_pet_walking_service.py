@@ -87,3 +87,10 @@ def test_gps_alert_after_two_consecutive_weak_signals():
     assert inspect_gps_collars([[19, 19]]) == "LOST_SIGNAL_ALERT"
     assert inspect_gps_collars([[50], [19, 19]]) == "LOST_SIGNAL_ALERT"
 
+
+
+def test_weekend_transport_is_rounded_to_cents():
+    result = process_walking_routes(
+        [route(is_weekend=True)], 1.237
+    )
+    assert result == {"total_revenue": 28.24, "status": "COMPLETED"}
